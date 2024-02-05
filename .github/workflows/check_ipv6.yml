@@ -8,6 +8,7 @@ jobs:
   check-ipv6-and-curl:
     runs-on: ubuntu-latest
     steps:
+    
     - name: Check IPv6 support
       run: |
         echo "Checking IPv6 support..."
@@ -18,6 +19,16 @@ jobs:
           echo "IPv6 is NOT supported"
           exit 1
         fi
+        
+    - name: Test IPv6 Connectivity (Optional)
+        run: |
+          echo "Testing IPv6 connectivity..."
+          if ping6 -c 4 ipv6.google.com; then
+            echo "IPv6 connectivity looks good."
+          else
+            echo "IPv6 connectivity test failed."
+            exit 1  # Fail the job if IPv6 is not reachable
+          fi
 
     - name: Curl Google over IPv6
       run: |
