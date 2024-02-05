@@ -1,0 +1,21 @@
+name: Check IPv6 Support
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  check-ipv6:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check IPv6 support
+      run: |
+        echo "Checking IPv6 support..."
+        if [ -f /proc/net/if_inet6 ]; then
+          echo "IPv6 is supported"
+          ip -6 a
+        else
+          echo "IPv6 is NOT supported"
+        fi
+
+
