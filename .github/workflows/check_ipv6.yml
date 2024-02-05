@@ -1,11 +1,11 @@
-name: Check IPv6 Support
+name: Check IPv6 Support and Curl Google
 
 on:
   push:
   workflow_dispatch:
 
 jobs:
-  check-ipv6:
+  check-ipv6-and-curl:
     runs-on: ubuntu-latest
     steps:
     - name: Check IPv6 support
@@ -16,6 +16,13 @@ jobs:
           ip -6 a
         else
           echo "IPv6 is NOT supported"
+          exit 1
         fi
 
+    - name: Curl Google over IPv6
+      run: |
+        echo "Curling Google over IPv6..."
+        # Use the '-6' flag to force curl to use IPv6
+        # Use the '--verbose' flag to get detailed information about the request and response
+        curl -6 --verbose https://www.google.com
 
